@@ -24,10 +24,9 @@ app.get("/", function (req, res) {
         numberofunhealthykidneys
     })
 })
-
 app.post("/", function (req, res) {
 
-    const ishealthy = req.body.ishealthy;
+    const isHealthy = req.body.isHealthy;
     users[0].kidneys.push({
         healthy: isHealthy
     })
@@ -35,13 +34,33 @@ app.post("/", function (req, res) {
         msg: "Done!"
     })
 })
-
-app.listen(3003);
 app.put("/", function (req, res) {
+    for (let i = 0; i < users[0].kidneys.length; i++) {
+        users[0].kidneys[i].healthy = true;
 
-
+    }
+    res.json({});
 })
 app.delete("/", function (req, res) {
-
+    const newkidneys = [];
+    for (let i = 0; i < users[0].kidneys.length; i++) {
+        if (users[0].kidneys[i].healthy) {
+            newkidneys.push({
+                healthy: true
+            })
+        }
+    }
+    users[0].kidneys = newkidneys;
+    res.json({ msg: "done!!" })
 
 })
+app.listen(3003);
+// app.put("/", function (req, res) {
+
+
+// })
+// app.delete("/", function (req, res) {
+
+
+// })
+// app.listen(3003);
