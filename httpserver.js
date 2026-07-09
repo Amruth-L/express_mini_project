@@ -1,11 +1,15 @@
 const express = require("express");
 const app = express();
-let requestCount = 0;
-function requestIncreaser() {
-    requestCount = requestCount + 1;
-    console.log("Total number of request = " + requestCount);
+
+function Middleware(req, res, next) {
+    console.log("Method is = " + req.method);
+    console.log("Host is = " + req.url);
+    console.log(new Date());
+
+    next();
 }
-app.get('/sum', requestIncreaser, function (req, res) {
+app.use(Middleware);
+app.get('/sum', function (req, res) {
     const a = parseInt(req.params.a);
     const b = parseInt(req.params.b);
     res.json({
